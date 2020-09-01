@@ -32,7 +32,11 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	configFilePath = home + "/.2faconfig.yaml"
+
+	configFilePath = os.Getenv("TWO_FA_CONFIG")
+	if configFilePath == "" {
+		configFilePath = home + "/.2faconfig.yaml"
+	}
 
 	flag.StringVar(&configFilePath, "config", configFilePath, "path to secret file")
 	flag.Parse()
